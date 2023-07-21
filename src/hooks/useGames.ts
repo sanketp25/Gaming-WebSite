@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import apiClients from "../services/api-clients";
 
 interface Game {
-    id: number;
-    name: string;
-    rating?: number;
-  }
-  
-  interface FetchGameResponse {
-    count: number;
-    results: Game[];
-  }
-const useGames = ()=>{
+  id: number;
+  name: string;
+  rating?: number;
+}
+
+interface FetchGameResponse {
+  count: number;
+  results: Game[];
+}
+const useGames = () => {
   const [games, setGames] = useState<Game[]>([]);
   const [error, setError] = useState("");
 
@@ -20,21 +20,18 @@ const useGames = ()=>{
     const controller = new AbortController();
 
     apiClients
-      .get<FetchGameResponse>("/games", { signal : controller.signal})
+      .get<FetchGameResponse>("/games", { signal: controller.signal })
       .then((res) => setGames(res.data.results))
       .catch((err) => {
-        if(err instanceof CanceledError) return;
-        setError(err.message)
-      
-    });
-      
-    
-    return () => controller.abort();  
-  },[]); // To hit the api
+        if (err instanceof CanceledError) return;
+        setError(err.message);
+      });
+
+    return () => controller.abort();
+  }, []); // To hit the api
   //empty array to send the request to the api only once
 
-  return {error, games}
+  return { error, games };
+};
 
-}
-
-export default useGames
+export default useGames;
