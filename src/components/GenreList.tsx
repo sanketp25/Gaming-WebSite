@@ -24,9 +24,12 @@ const GenreList = ({ selectedGenre, onSelect }: Props) => {
             <Image
               boxSize="32px"
               borderRadius={8}
+              objectFit='cover'
               src={getCroppedImage(genre.image_background)}
             />
             <Button
+              whiteSpace="normal"
+              textAlign="left"
               fontSize="lg"
               fontWeight={
                 selectedGenre?.id === genre.id ? "extrabold" : "normal"
